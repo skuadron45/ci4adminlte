@@ -30,7 +30,7 @@ class Adminlte
 		$this->auth = new Auth();
 
 		//Default vars
-		$this->vars['authFullname'] = $this->auth->getUserData('fullname');				
+		$this->vars['authFullname'] = $this->auth->getUserData('fullname');
 	}
 
 	public function crudForm($mainActionUrl = '#', $backWardUrl = '#', $useRefererFirst = true)
@@ -183,6 +183,7 @@ class Adminlte
 
 	public function showLoginPage()
 	{
+		echo view(get_admin_view('login'), $this->vars);
 	}
 
 	public function validationLogin($ci)

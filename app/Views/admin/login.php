@@ -1,0 +1,210 @@
+<?php
+$status = isset($status) ? $status : null;
+$message = isset($message) ? $message : null;
+$appName = isset($appName) ? $appName : '';
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>.::Login Page::.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <?php print_link_resource("assets/admin/plugins/fontawesome-free/css/all.min.css"); ?>
+
+    <!-- Ionicons -->
+    <?php print_link_resource("assets/admin/plugins/ionicons/css/ionicons.min.css"); ?>
+
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <?php print_link_resource("assets/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"); ?>
+
+    <!-- iCheck -->
+    <?php print_link_resource("assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css"); ?>
+
+    <!-- Toastr -->
+    <?php print_link_resource("assets/admin/plugins/toastr/toastr.min.css"); ?>
+
+    <!-- SweetAlert2 -->
+    <?php print_link_resource("assets/admin/plugins/sweetalert2/sweetalert2.css"); ?>
+    <?php print_link_resource("assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"); ?>
+
+    <!-- Theme style -->
+    <?php print_link_resource("assets/admin/dist/css/adminlte.min.css"); ?>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- Custom style -->
+    <?php print_link_resource("assets/admin/custom/custom.css"); ?>
+
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="<?php print_site_url() ?>" class="navbar-brand">
+                    <span class="brand-text font-weight-light"><?= $appName; ?></span>
+                </a>
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php print_site_url() ?>" target="_blank">
+                            <i class="fa fa-rocket"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark"></h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="login-box">
+                    <div class="login-logo">
+                        <a href="#"><b>Administrator Panel</b></a>
+                    </div>
+                    <!-- /.login-logo -->
+                    <div class="card">
+                        <div class="card-body login-card-body">
+                            <p class="login-box-msg">Sign in to start your session</p>
+
+                            <?php
+                            print_var(form_open($link_form));
+                            ?>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Username" name="username">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Password" name="password">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            if (isset($captcha)) {
+                            ?>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <?php print_var($captcha); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+
+
+                            <?php
+                            print_var(form_close());
+                            ?>
+                            <p class="mb-1">
+                                <a href="#">I forgot my password</a>
+                            </p>
+                        </div>
+                        <!-- /.login-card-body -->
+                    </div>
+                </div>
+                <!-- /.login-box -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2014-2019 <a href="#"><?= $appName; ?></a>.</strong> All rights reserved.
+        </footer>
+    </div>
+
+    <!-- JS Cookie -->
+    <?php print_script_resource("assets/admin/plugins/js-cookie/js.cookie.js"); ?>
+    <!-- jQuery -->
+    <?php print_script_resource("assets/admin/plugins/jquery/jquery.min.js"); ?>
+    <!-- jQuery UI 1.11.4 -->
+    <?php print_script_resource("assets/admin/plugins/jquery-ui/jquery-ui.min.js"); ?>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <?php print_script_resource("assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
+    <!-- SweetAlert2 -->
+    <?php print_script_resource("assets/admin/plugins/sweetalert2/sweetalert2.js"); ?>
+    <!-- Toastr -->
+    <?php print_script_resource("assets/admin/plugins/toastr/toastr.min.js"); ?>
+    <!-- AdminLTE App -->
+    <?php print_script_resource("assets/admin/dist/js/adminlte.min.js"); ?>
+    <!-- Custom JS -->
+    <?php print_script_resource("assets/admin/custom/custom.js"); ?>
+    <?php
+    if (isset($status)) {
+    ?>
+        <script>
+            $(function() {
+                var status = <?php print_var($status) ?>;
+                var message = <?php print_var($message) ?>;
+                HELPER.Notify.notif(status, message);
+            });
+        </script>
+    <?php
+    }
+    ?>
+</body>
+
+</html>
