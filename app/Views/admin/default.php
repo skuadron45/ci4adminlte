@@ -1,11 +1,9 @@
 <?php
-
 /**
  * @var \CodeIgniter\view\View $this
  */
+
 $this->extend('admin/layouts/index');
-?>
-<?php
 $this->section('main-content');
 ?>
 <!-- Main content -->
@@ -20,7 +18,7 @@ $this->section('main-content');
       </div>
       <div class="card-body">
         <?php
-        var_dump($this->getData());
+        var_dump($this->getData()['debugs']);
         ?>
       </div>
     </div>

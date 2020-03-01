@@ -193,13 +193,13 @@ class App extends BaseConfig
 	| except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 	|
 	*/
-	public $sessionDriver            = 'CodeIgniter\Session\Handlers\FileHandler';
-	public $sessionCookieName        = 'ci_session';
+	public $sessionDriver            = 'CodeIgniter\Session\Handlers\DatabaseHandler';
+	public $sessionCookieName        = 'cposhop';
 	public $sessionExpiration        = 7200;
-	public $sessionSavePath          = WRITEPATH . 'session';
-	public $sessionMatchIP           = false;
-	public $sessionTimeToUpdate      = 300;
-	public $sessionRegenerateDestroy = false;
+	public $sessionSavePath          = '_sessions';
+	public $sessionMatchIP           = TRUE;
+	public $sessionTimeToUpdate      = 0;
+	public $sessionRegenerateDestroy = TRUE;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -255,9 +255,9 @@ class App extends BaseConfig
 	| CSRFRegenerate  = Regenerate token on every submission
 	| CSRFRedirect    = Redirect to previous page with error on failure
 	*/
-	public $CSRFTokenName  = 'csrf_test_name';
+	public $CSRFTokenName  = 'csrf_cposhop_token';
 	public $CSRFHeaderName = 'X-CSRF-TOKEN';
-	public $CSRFCookieName = 'csrf_cookie_name';
+	public $CSRFCookieName = 'csrf_cposhop_cookie';
 	public $CSRFExpire     = 7200;
 	public $CSRFRegenerate = true;
 	public $CSRFRedirect   = true;
