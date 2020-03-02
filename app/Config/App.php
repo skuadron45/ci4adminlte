@@ -45,7 +45,7 @@ class App extends BaseConfig
 	| variable so that it is blank.
 	|
 	*/
-	public $indexPage = 'index.php';
+	public $indexPage = '';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ class App extends BaseConfig
 	public $sessionDriver            = 'CodeIgniter\Session\Handlers\DatabaseHandler';
 	public $sessionCookieName        = 'cposhop';
 	public $sessionExpiration        = 7200;
-	public $sessionSavePath          = '_sessions';
+	public $sessionSavePath          = '_ci4sessions';
 	public $sessionMatchIP           = TRUE;
 	public $sessionTimeToUpdate      = 0;
 	public $sessionRegenerateDestroy = TRUE;
@@ -260,7 +260,7 @@ class App extends BaseConfig
 	public $CSRFCookieName = 'csrf_cposhop_cookie';
 	public $CSRFExpire     = 7200;
 	public $CSRFRegenerate = true;
-	public $CSRFRedirect   = true;
+	public $CSRFRedirect   = false;
 
 	/*
 	|--------------------------------------------------------------------------

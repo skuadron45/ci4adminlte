@@ -235,6 +235,17 @@ $sidebar['modules'] = isset($sidebar['modules']) ? $sidebar['modules'] : '';
   <?php print_script_resource("assets/admin/dist/js/adminlte.js"); ?>
   <!-- Custom JS -->
   <?php print_script_resource("assets/admin/custom/custom.js"); ?>
-
+  <?php
+  if (isset($status)) {
+  ?>
+    <script>
+      var status = <?php print_var($status) ?>;
+      var message = <?php print_var($message) ?>;
+      HELPER.Notify.notif(status, message);
+    </script>
+  <?php
+  }
+  ?>
 </body>
+
 </html>

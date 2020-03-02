@@ -6,35 +6,39 @@ use CodeIgniter\Config\BaseConfig;
 
 class Filters extends BaseConfig
 {
-	// Makes reading things below nicer,
-	// and simpler to change out script that's used.
 	public $aliases = [
 		'csrf'     => \CodeIgniter\Filters\CSRF::class,
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
+		'AdminNotLogin' => \App\Filters\AdminNotLogin::class,
+		'AdminHasLogin' => \App\Filters\AdminHasLogin::class
 	];
 
-	// Always applied before every request
-	public $globals = [
-		'before' => [
-			//'honeypot'
-			'csrf',
+	public $filters = [
+		'AdminNotLogin' => [
+			'before' => ['admin/*'],
+			'after' => []
 		],
+		'AdminHasLogin' => [
+			'before' => [
+				 '/login',
+			],
+			'after' => []
+		],
+		'csrf' => [
+			'before' => [],
+			'after' => []
+		]
+	];
+
+	public $globals = [
+		'before' => [],
 		'after'  => [
 			'toolbar',
-			//'honeypot'
 		],
 	];
 
-	// Works on all of a particular HTTP method
-	// (GET, POST, etc) as BEFORE filters only
-	//     like: 'post' => ['CSRF', 'throttle'],
 	public $methods = [
-		'post' => ['CSRF']
+		'post' => []
 	];
-
-	// List filter aliases and any before/after uri patterns
-	// that they should run on, like:
-	//    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
-	public $filters = [];
 }

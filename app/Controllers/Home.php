@@ -8,6 +8,8 @@ class Home extends BaseController
 
 	public function index()
 	{
-		$this->response->redirect('admin/dashboard');
+
+		var_dump('Home');
+		//return redirect()->to('/admin/dashboard');
 	}
 }
