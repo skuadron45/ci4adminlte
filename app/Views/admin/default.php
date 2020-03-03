@@ -1,8 +1,8 @@
 <?php
+
 /**
  * @var \CodeIgniter\view\View $this
  */
-
 $this->extend('admin/layouts/index');
 $this->section('main-content');
 ?>

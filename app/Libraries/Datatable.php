@@ -2,9 +2,9 @@
 
 namespace App\Libraries;
 
-use \Config\Database;
+use Config\Database;
 
-class Datatables
+class Datatable
 {
     private $table = null;
     private $selectDbColumns = [];
@@ -55,7 +55,7 @@ class Datatables
 
     public function getOutput($requestData)
     {
-        $model = new Defaultdatatablemodel($this->table, $requestData);
+        $model = new DefaultDatatableModel($this->table, $requestData);
         $model->setDtHandlers($this->dtHandlers);
         // $model->selectDbColumn($this->selectDbColumns);
 
@@ -69,11 +69,11 @@ class Datatables
     }
 }
 
-interface Datatablemodel
+interface DatatableModel
 {
 }
 
-class Defaultdatatablemodel implements Datatablemodel
+class DefaultDatatableModel implements DatatableModel
 {
 
     private $requestData = [];

@@ -28,4 +28,14 @@ class BaseController extends Controller
 	{
 		parent::initController($request, $response, $logger);
 	}
+
+	protected function outputError($httpCode = 403, $message = 'Request forbidden!')
+	{
+		$status = 'error';
+		$this->vars['status'] = $status;
+		$this->vars['message'] = $message;
+		return $this->response
+			->setStatusCode($httpCode)
+			->setJSON($this->vars);
+	}
 }

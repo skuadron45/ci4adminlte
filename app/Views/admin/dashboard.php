@@ -3,7 +3,6 @@
 /**
  * @var \CodeIgniter\view\View $this
  */
-
 $this->extend('admin/layouts/index');
 ?>
 <?php

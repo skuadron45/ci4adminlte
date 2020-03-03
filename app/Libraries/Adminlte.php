@@ -12,6 +12,8 @@ class Adminlte
 
 	private $renderDebug = true;
 
+	private $selectedModule = -1;
+
 	protected $vars = array(
 		'appName' => 'CP OSHOP',
 		'pageTitle' => 'Page Title',
@@ -73,6 +75,31 @@ class Adminlte
 
 	public function selectModule($selectedModule)
 	{
+		$this->selectedModule = $selectedModule;
+	}
+
+	public function addViewScript($viewScript = null)
+	{
+		$this->vars['viewScripts'][] = get_admin_view($viewScript);
+	}
+
+	public function setContentView($contentView = null)
+	{
+		$this->baseView = $contentView;
+	}
+
+	public function renderDebug($debug = true)
+	{
+		$this->renderDebug = $debug;
+	}
+
+	public function setVars($vars = array())
+	{
+		$this->vars = array_merge($this->vars, $vars);
+	}
+
+	private function initSidebar($selectedModule)
+	{
 		$userPrivileges = $this->auth->getUserPrivileges();
 		$selectedModulePath = $selectedModule;
 
@@ -88,36 +115,16 @@ class Adminlte
 		}
 
 		$userModule = $this->auth->getUserModules();
-
 		$sideBar = $this->sidebarModules($userModule, null, $selectedModulePath);
 		$this->vars['sidebar']['modules'] = $sideBar;
-
 		$this->vars['selectedModule'] = $selectedModule;
 		$this->vars['selectedModulePath'] = $selectedModulePath;
 	}
 
-	public function addViewScript($viewScript = null)
-	{
-		$this->vars['viewScripts'][] = get_admin_view($viewScript);
-	}
-
-	public function setContentView($contentView = null)
-	{
-		$this->vars['contentView'] = get_admin_view($contentView);
-	}
-
-	public function renderDebug($debug = true)
-	{
-		$this->renderDebug = $debug;
-	}
-
-	public function setVars($vars = array())
-	{
-		$this->vars = array_merge($this->vars, $vars);
-	}
-
 	public function renderContentView($contentView = null)
 	{
+		$this->initSidebar($this->selectedModule);
+
 		if (isset($contentView)) {
 			$this->baseView = get_admin_view($contentView);
 		}

@@ -72,6 +72,15 @@ $sidebar['modules'] = isset($sidebar['modules']) ? $sidebar['modules'] : '';
   <!-- Custom style -->
   <?php print_link_resource("assets/admin/custom/custom.css"); ?>
 
+  <script type="text/javascript">
+    const _BASE_URL = '<?= base_url(); ?>';
+    const _SITE_URL = '<?= site_url(); ?>';
+    const _CURRENT_URL = '<?= current_url(); ?>';
+    const _ADMIN_SITE_URL = '<?= admin_site_url(); ?>';
+    const _CSRF_COOKIE = '<?= csrf_cookie(); ?>';
+    const _CSRF_NAME = '<?= csrf_token(); ?>';
+  </script>
+
 </head>
 
 <body class="sidebar-mini layout-fixed text-sm">
@@ -235,6 +244,11 @@ $sidebar['modules'] = isset($sidebar['modules']) ? $sidebar['modules'] : '';
   <?php print_script_resource("assets/admin/dist/js/adminlte.js"); ?>
   <!-- Custom JS -->
   <?php print_script_resource("assets/admin/custom/custom.js"); ?>
+
+  <?php
+  $this->renderSection('main-script');
+  ?>
+
   <?php
   if (isset($status)) {
   ?>

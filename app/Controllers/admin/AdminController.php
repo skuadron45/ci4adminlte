@@ -15,6 +15,7 @@ use Config\Services;
 
 class AdminController extends BaseController
 {
+	protected $selectedModule = -1;
 
 	/**
 	 * @var Adminlte
@@ -33,7 +34,7 @@ class AdminController extends BaseController
 		parent::initController($request, $response, $logger);
 
 		$this->adminlte = new Adminlte();
-		$this->auth = Services::auth();		
+		$this->auth = Services::auth();
 
 		$session = Services::session();
 		$this->vars['status'] = $session->getFlashdata('status');
@@ -42,6 +43,7 @@ class AdminController extends BaseController
 
 	protected function render()
 	{
+		$this->adminlte->selectModule($this->selectedModule);
 		$this->adminlte->setVars($this->vars);
 		$this->adminlte->renderContentView();
 	}
@@ -52,5 +54,17 @@ class AdminController extends BaseController
 
 		$session->setFlashdata('status', json_encode($status));
 		$session->setFlashdata('message', json_encode($message));
+	}
+
+	protected function responeDataTable($dataTable)
+	{
+		if ($this->request->isAJAX()) {
+			if ($requestData = $this->request->getGet()) {
+				$output = $dataTable->getOutput($requestData);
+				print_var(json_encode($output));
+			}
+		} else {
+			parent::outputError();
+		}
 	}
 }

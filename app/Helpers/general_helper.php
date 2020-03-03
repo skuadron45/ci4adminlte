@@ -1,5 +1,7 @@
 <?php
 
+use Config\App;
+
 function print_link_resource($resource)
 {
 	$link = "<link rel='stylesheet' href='" . base_url($resource) . "'>";
@@ -60,3 +62,9 @@ function populateArrayWithKey($arrays = array(), $key = '')
 	return $newArray;
 }
 // }
+
+function csrf_cookie(): string
+{
+	$config = config(App::class);
+	return $config->CSRFCookieName;
+}
