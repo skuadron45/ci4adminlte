@@ -4,7 +4,6 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Session\Session;
 use Psr\Log\LoggerInterface;
 
 use App\Controllers\BaseController;

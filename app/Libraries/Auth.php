@@ -21,6 +21,7 @@ class Auth
 	public function __construct()
 	{
 		$this->session = Services::session();
+		helper('general');
 	}
 
 	public function hasLogin()

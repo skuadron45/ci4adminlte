@@ -1,29 +1,19 @@
 <?php
-if (!defined('BASEPATH')) {
-    defined('BASEPATH') or exit('No direct script access allowed');
-}
 
-/**
- * @property CI_Controller $CI
- * @property Defaultdatatablemodel $model
- */
+namespace App\Libraries;
+
+use \Config\Database;
+
 class Datatables
 {
-    private $model = NULL;
     private $table = null;
     private $selectDbColumns = [];
 
     private $dtHandlers = array();
 
-    public function __construct()
-    {
-        $this->CI = &get_instance();
-        $this->model = new Defaultdatatablemodel();
-    }
-    public function setTable($table)
+    public function __construct($table)
     {
         $this->table = $table;
-        $this->selectDbColumn();
     }
 
     public function selectDbColumn($column = '*', $reset = true)
@@ -32,21 +22,6 @@ class Datatables
             $this->selectDbColumns[] = [];
         }
         $this->selectDbColumns[] = $column;
-    }
-
-    public function getOutput($requestData)
-    {
-        $this->model->setTable($this->table);
-        $this->model->selectDbColumn($this->selectDbColumns);
-        $this->model->setRequestData($requestData);
-        $this->model->setDtHandlers($this->dtHandlers);
-        $output = array(
-            "draw" => $this->model->getDraw(),
-            "recordsTotal" => $this->model->getRecordsTotal(),
-            "recordsFiltered" => $this->model->getRecordsFiltered(),
-            "data" => $this->model->getData()
-        );
-        return $output;
     }
 
     public function addDtNumberHandler()
@@ -77,15 +52,27 @@ class Datatables
         }
         $this->dtHandlers[$dtIndex] = $dtHandler;
     }
+
+    public function getOutput($requestData)
+    {
+        $model = new Defaultdatatablemodel($this->table, $requestData);
+        $model->setDtHandlers($this->dtHandlers);
+        // $model->selectDbColumn($this->selectDbColumns);
+
+        $output = array(
+            "draw" => isset($requestData['draw']) ? intval($requestData['draw']) : 0,
+            "recordsTotal" => $model->getRecordsTotal(),
+            "recordsFiltered" => $model->getRecordsFiltered(),
+            "data" => $model->getData()
+        );
+        return $output;
+    }
 }
 
 interface Datatablemodel
 {
 }
 
-/**
- * @property CI_Controller $CI
- */
 class Defaultdatatablemodel implements Datatablemodel
 {
 
@@ -95,24 +82,20 @@ class Defaultdatatablemodel implements Datatablemodel
     private $countColumn = 'id';
 
     private $table = null;
-    private $selectDbColumns = [];
 
     private $dtHandlers = array();
 
-    private $CI;
-    public function __construct()
-    {
-        $this->CI = &get_instance();
-    }
+    private $builder = null;
 
-    public function setTable($table)
+    public function __construct($table, $requestData)
     {
         $this->table = $table;
-    }
+        $this->requestData = $requestData;
 
-    public function selectDbColumn($selectDbColumns)
-    {
-        $this->selectDbColumns = $selectDbColumns;
+        $db = Database::connect();
+        $this->builder = $db->table($this->table);
+
+        $this->countAll = $this->getCountAll();
     }
 
     public function setDtHandlers($dtHandlers)
@@ -120,10 +103,8 @@ class Defaultdatatablemodel implements Datatablemodel
         $this->dtHandlers = $dtHandlers;
     }
 
-    public function setRequestData($requestData)
+    public function selectDbColumn($selectDbColumns)
     {
-        $this->requestData = $requestData;
-        $this->countAll = $this->getCountAll();
     }
 
     public function getDraw()
@@ -151,18 +132,12 @@ class Defaultdatatablemodel implements Datatablemodel
         return $data;
     }
 
-    private function getRecords($requestData)
-    {
-        $this->buildQuery($requestData);
-        $query = $this->CI->db->get();
-        return $query->result_array();
-    }
 
     private function getCountAll()
     {
-        $this->CI->db->select("COUNT($this->countColumn) as count", TRUE);
-        $query = $this->CI->db->get($this->table);
-        $row = $query->row_array();
+        $this->builder->select("COUNT($this->countColumn) as count", TRUE);
+        $query = $this->builder->get();
+        $row = $query->getRowArray();
         return $row['count'];
     }
 
@@ -173,10 +148,11 @@ class Defaultdatatablemodel implements Datatablemodel
         $searchValue = isset($requestData['search']['value']) ? $requestData['search']['value'] : '';
 
         if ($isSearch && !empty($searchValue)  && $countAll !== null) {
-            $this->CI->db->select("COUNT($this->countColumn) as count", TRUE);
+
+            $this->builder->select("COUNT($this->countColumn) as count", TRUE);
             $this->filter($requestData);
-            $query = $this->CI->db->get($this->table);
-            $row = $query->row_array();
+            $query = $this->builder->get();
+            $row = $query->getRowArray();
             return $row['count'];
         }
         return $countAll;
@@ -185,7 +161,6 @@ class Defaultdatatablemodel implements Datatablemodel
     private function buildQuery($requestData)
     {
         $this->select();
-        $this->CI->db->from($this->table);
         $this->limit($requestData);
         $this->filter($requestData);
         $this->order($requestData);
@@ -201,7 +176,7 @@ class Defaultdatatablemodel implements Datatablemodel
             $offset = $requestData['start'];
             $limit = $requestData['length'];
             if ($limit != -1) {
-                $this->CI->db->limit($limit, $offset);
+                $this->builder->limit($limit, $offset);
             }
         }
     }
@@ -233,13 +208,13 @@ class Defaultdatatablemodel implements Datatablemodel
                 for ($i = 0; $i < $searchableFieldsCount; $i++) {
                     $searchableField = $searchableFields[$i];
                     if ($i === 0) {
-                        $this->CI->db->group_start();
-                        $this->CI->db->like($searchableField, $searchValue);
+                        $this->builder->groupStart();
+                        $this->builder->like($searchableField, $searchValue);
                     } else {
-                        $this->CI->db->or_like($searchableField, $searchValue);
+                        $this->builder->orLike($searchableField, $searchValue);
                     }
                     if ($i === ($searchableFieldsCount - 1)) {
-                        $this->CI->db->group_end();
+                        $this->builder->groupEnd();
                     }
                 }
             }
@@ -261,11 +236,18 @@ class Defaultdatatablemodel implements Datatablemodel
                     $isOrderable = $dtHandler['orderable'];
                     if ($isOrderable === true) {
                         $dtHandlerDbField = $dtHandler['dbField'];
-                        $this->CI->db->order_by($dtHandlerDbField, $orderDir);
+                        $this->builder->orderBy($dtHandlerDbField, $orderDir);
                     }
                 }
             }
         }
+    }
+
+    private function getRecords($requestData)
+    {
+        $this->buildQuery($requestData);
+        $query = $this->builder->get();
+        return $query->getResultArray();
     }
 
     private function renderData($requestData)

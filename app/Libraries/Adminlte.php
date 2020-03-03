@@ -2,6 +2,8 @@
 
 namespace App\Libraries;
 
+use Config\Services;
+
 class Adminlte
 {
 	private $auth;
@@ -27,7 +29,7 @@ class Adminlte
 
 	public function __construct()
 	{
-		$this->auth = new Auth();
+		$this->auth = Services::auth();
 
 		//Default vars
 		$this->vars['authFullname'] = $this->auth->getUserData('fullname');
@@ -190,9 +192,5 @@ class Adminlte
 		$parser = \Config\Services::parser();
 		$parser = $parser->setData($this->vars);
 		echo $parser->renderString($contentView);
-	}
-
-	public function validationLogin($ci)
-	{
 	}
 }
