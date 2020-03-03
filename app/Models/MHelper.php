@@ -7,8 +7,6 @@ use \Config\Database;
 class MHelper
 {
 
-    protected $db;
-
     private $errors = [];
 
     private function getErrorMessage()
@@ -19,29 +17,29 @@ class MHelper
 
     private function verifyErrorMessage()
     {
-        $this->db = Database::connect();
-        if (!empty($this->db->error()['message'])) {
-            $this->errors[] = $this->db->error()['message'];
+        $db = Database::connect();
+        if (!empty($db->error()['message'])) {
+            $this->errors[] = $db->error()['message'];
         }
     }
 
     private function select($table, $fields = [], $where = null)
     {
         $db = Database::connect();
-        $this->db = $db->table($table);
+        $builder = $db->table($table);
         foreach ($fields as $key => $escape) {
             if (is_numeric($key)) {
-                $this->db->select($escape);
+                $builder->select($escape);
             } else {
-                $this->db->select($key, $escape);
+                $builder->select($key, $escape);
             }
         }
 
         if (isset($where)) {
-            $this->db->where($where);
+            $builder->where($where);
         }
 
-        $query = $this->db->get();
+        $query = $builder->get();
         return $query;
     }
 
@@ -94,45 +92,64 @@ class MHelper
 
     public function update($table, array $fillData, $where)
     {
-        $this->db->trans_start();
-        $this->db->update($table, $fillData, $where);
+        $db = Database::connect();
+        $db->transStart();
+
+        $builder = $db->table($table);
+        $builder->update($fillData, $where);
         $this->verifyErrorMessage();
-        $this->db->trans_complete();
+
+        $db->transComplete();
         $errorMessage = $this->getErrorMessage();
         return $errorMessage;
     }
 
     public function insert($table, array $fillData)
     {
-        $this->db->trans_start();
-        $this->db->insert($table, $fillData);
+        $db = Database::connect();
+        $db->transStart();
+
+        $builder = $db->table($table);
+        $builder->insert($fillData);
         $this->verifyErrorMessage();
-        $this->db->trans_complete();
+
+        $db->transComplete();
         $errorMessage = $this->getErrorMessage();
         return $errorMessage;
     }
     public function delete($table, $where)
     {
-        $this->db->trans_start();
-        $this->db->delete($table, $where);
+
+        $db = Database::connect();
+        $db->transStart();
+
+        $builder = $db->table($table);
+        $builder->delete($where);
         $this->verifyErrorMessage();
-        $this->db->trans_complete();
+
+        $db->transComplete();
         $errorMessage = $this->getErrorMessage();
         return $errorMessage;
     }
 
     public function replace($table, array $fillData, $where)
     {
-        $this->db->trans_start();
-        $this->db->where($where);
-        $this->db->replace($table, $fillData);
+        $db = Database::connect();
+        $db->transStart();
+
+        $builder = $db->table($table);
+        $builder->where($where);
+        $builder->replace($fillData);
+
         $this->verifyErrorMessage();
-        $this->db->trans_complete();
+
+        $db->transComplete();
         $errorMessage = $this->getErrorMessage();
         return $errorMessage;
     }
     public function insert_id()
     {
-        return $this->db->insert_id();
+        $db = Database::connect();
+        return $db->insertID();
     }
 }

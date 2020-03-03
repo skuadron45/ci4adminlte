@@ -6,13 +6,12 @@ use CodeIgniter\Config\BaseConfig;
 
 if (is_cli()) {
 	$dynamicUrl = "";
-} else {	
+} else {
 	$dynamicUrl = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
 	$dynamicUrl .= "://" . $_SERVER['HTTP_HOST'];
 	$dynamicUrl .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 }
-
-define("DYNAMIC_URL", $dynamicUrl);
+defined("DYNAMIC_URL") or define("DYNAMIC_URL", $dynamicUrl);
 
 class App extends BaseConfig
 {
@@ -196,7 +195,7 @@ class App extends BaseConfig
 	public $sessionDriver            = 'CodeIgniter\Session\Handlers\DatabaseHandler';
 	public $sessionCookieName        = 'cposhop';
 	public $sessionExpiration        = 7200;
-	public $sessionSavePath          = '_ci4sessions';
+	public $sessionSavePath          = '_sessions';
 	public $sessionMatchIP           = TRUE;
 	public $sessionTimeToUpdate      = 0;
 	public $sessionRegenerateDestroy = TRUE;

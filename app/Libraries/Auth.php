@@ -3,14 +3,15 @@
 namespace App\Libraries;
 
 use Config\Services;
-use Config\Encryption;
 use App\Models\MAuth;
-use APP\Models\MHelper;
+use App\Models\MModule;
 
 class Auth
 {
 
 	private const SESSION_KEY = "admin";
+
+	private const USER_DATA_KEY = "user";
 
 	/**
 	 * @var \CodeIgniter\Session\Session
@@ -36,15 +37,20 @@ class Auth
 		if (isset($user)) {
 			$userPassword = $user['password'];
 			$passwordDecrypt = $password;
-
-			$config         = new Encryption();
-			$config->key    = hex2bin('e3464c731115cf50ab1b29de0ff4c3ce');
-
-			$encrypter = Services::encrypter($config);
-
+			$encrypter = Services::encrypter();
 			try {
 				$passwordDecrypt = $encrypter->decrypt(base64_decode($userPassword));
 				if ($password === $passwordDecrypt) {
+					$userGroupId = $user['user_group_id'];
+
+					//Privileges
+					$privileges = $mAuth->getUserPrivileges($userGroupId);
+
+					//User modules filter by privileges
+					$privilegeIds = populateArrayWithKey($privileges, 'module_id');
+
+					$mModule = new MModule();
+					$userModules = $mModule->getUserModules($privilegeIds);
 
 					$userData = array(
 						'id' => $user['id'],
@@ -56,16 +62,9 @@ class Auth
 						'type' => $user['type'],
 					);
 
-					//Privileges
-					$privileges = [];
-
-					//User modules filter by privileges
-					$privilegeIds = [];
-					$userModules = [];
-
 					$sessionData = [
 						'hasLogin' => true,
-						'user' => $userData,
+						self::USER_DATA_KEY => $userData,
 						'privileges' => $privileges,
 						'modules' => $userModules
 					];
@@ -85,55 +84,90 @@ class Auth
 
 	public function getSuccessUrl()
 	{
-		helper('admin');
-		return get_admin_base('dashboard');
+		$privileges = $this->getUserPrivileges();
+		$moduleUrls = populateArrayWithKey($privileges, 'module_url');
+		$defaultUrl = count($privileges) > 0 ? $moduleUrls[0] : '';
+		$homeUrl = $this->getUserData('home_module_url');
+		$url = isset($homeUrl) ? in_array($homeUrl, $moduleUrls) : false;
+		return $url ? $homeUrl : $defaultUrl;
 	}
 
 	public function encrptPassword($password)
 	{
+		$encrypter = Services::encrypter();
+		return $encrypter->encrypt($password);
 	}
 
 	public function getUser()
 	{
+		$sessionData = $this->session->get(self::SESSION_KEY);
+		return isset($sessionData[self::USER_DATA_KEY]) ? $sessionData[self::USER_DATA_KEY] : null;
 	}
 
 	public function getUserData($key = 'username')
 	{
+		$userData = $this->getUser();
+		return isset($userData[$key]) ? $userData[$key] : null;
 	}
 
 	public function getUserModules()
 	{
+		$sessionData = $this->session->get(self::SESSION_KEY);
+		$modules = isset($sessionData['modules']) ? $sessionData['modules'] : [];
+		return $modules;
 	}
 
 	public function hasPrivilege($moduleId)
 	{
+		$privileges = $this->getUserPrivileges();
+		$privilege = isset($privileges[$moduleId]) ? $privileges[$moduleId] : NULL;
+		return $privilege;
 	}
 
 	public function hasAddPrivilege($moduleId)
 	{
+		return $this->getCrudPrivilege($moduleId, 'can_add');
 	}
 
 	public function hasEditPrivilege($moduleId)
 	{
+		return $this->getCrudPrivilege($moduleId, 'can_edit');
 	}
 
 	public function hasDeletePrivilege($moduleId)
 	{
+		return $this->getCrudPrivilege($moduleId, 'can_delete');
 	}
 
 	public function hasAddOrEditPrivileges($moduleId)
 	{
+		return ($this->hasAddPrivilege($moduleId) || $this->hasEditPrivilege($moduleId));
 	}
 
 	private function getCrudPrivilege($moduleId, $key)
 	{
+		$privilege = $this->hasPrivilege($moduleId);
+		$isAllow = false;
+		if (isset($privilege)) {
+			$isAllow = isset($privilege[$key]) ? (bool) $privilege[$key] : false;
+		}
+		return $isAllow;
 	}
 
 	public function getUserPrivileges()
 	{
+		$sessionData = $this->session->get(self::SESSION_KEY);
+		$privileges = isset($sessionData['privileges']) ? $sessionData['privileges'] : [];
+		return $privileges;
 	}
 
 	public function getUserPrivilegeIds()
 	{
+		$priviliges = $this->getUserPrivileges();
+		$privilegeIds = [];
+		foreach ($priviliges as $privilige) {
+			$privilegeIds[] = $privilige['module_id'];
+		}
+		return $privilegeIds;
 	}
 }

@@ -16,12 +16,14 @@ class Filters extends BaseConfig
 
 	public $filters = [
 		'AdminNotLogin' => [
-			'before' => ['admin/*'],
+			'before' => [
+				'admin/*',
+			],
 			'after' => []
 		],
 		'AdminHasLogin' => [
 			'before' => [
-				 '/login',
+				'/login',
 			],
 			'after' => []
 		],

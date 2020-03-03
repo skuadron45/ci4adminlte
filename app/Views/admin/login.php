@@ -9,7 +9,7 @@ $appName = isset($appName) ? $appName : '';
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>.::Login Page::.</title>
+    <title>{appName}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
@@ -48,7 +48,7 @@ $appName = isset($appName) ? $appName : '';
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="<?php print_site_url() ?>" class="navbar-brand">
-                    <span class="brand-text font-weight-light"><?= $appName; ?></span>
+                    <span class="brand-text font-weight-light">{appName}</span>
                 </a>
 
                 <!-- Right navbar links -->

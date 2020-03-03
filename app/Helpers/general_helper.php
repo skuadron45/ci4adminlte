@@ -49,3 +49,14 @@ function getArrayString($array, $key, $default = '')
 	$value = is_string($value) ? $value : var_dump($value);
 	return get_var($value);
 }
+
+// if (!function_exists('is_value_null_for_keys')) {
+function populateArrayWithKey($arrays = array(), $key = '')
+{
+	$newArray = [];
+	foreach ($arrays as $array) {
+		$newArray[] = $array[$key];
+	}
+	return $newArray;
+}
+// }

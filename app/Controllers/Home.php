@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
-{
-	protected $helpers = ['general'];
+use App\Controllers\Admin\AdminController;
+use Config\Services;
 
+class Home extends AdminController
+{
 	public function index()
 	{
+		$autoload = Services::autoloader();
+		d($autoload->getNamespace());
 
-		var_dump('Home');
-		//return redirect()->to('/admin/dashboard');
+		$validator = Services::validation();
+        var_dump($validator->listErrors());
 	}
 }

@@ -2,14 +2,11 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Encryption\Encryption;
-
+use Config\Services;
 use App\Controllers\Admin\AdminController;
-use CodeIgniter\CodeIgniter;
 
 class Login extends AdminController
 {
-
     private function loginRedirect($url)
     {
         $this->response->redirect($url);
@@ -27,16 +24,17 @@ class Login extends AdminController
                     $status = "success";
                     $message = "Login berhasil !";
                     $this->setFlashMessage($status, $message);
-                    return $this->loginRedirect(site_url('admin/dashboard'));
+                    $successUrl = $this->auth->getSuccessUrl();
+                    return $this->loginRedirect($successUrl);
                 } else {
                     $message = "Username dan password salah !";
                 }
             } else {
-                $message = 'Validasi gagal !';
+                $message = $this->validator->listErrors('alert');
             }
 
             $this->setFlashMessage($status, $message);
-            return $this->loginRedirect(site_url('login'));
+            return $this->loginRedirect('login');
         }
 
         $this->vars['link_form'] = 'login';
@@ -47,6 +45,16 @@ class Login extends AdminController
 
     private function validation($postData = [])
     {
-        return !empty($postData['username']);
+        $rules = [
+            'username' => [
+                'label'  => 'Username',
+                'rules'  => 'required|alpha_dash'
+            ],
+            'password' => [
+                'label'  => 'Password',
+                'rules'  => 'required'
+            ],
+        ];
+        return $this->validate($rules);
     }
 }

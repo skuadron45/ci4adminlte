@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use \Config\Database;
@@ -7,21 +6,26 @@ use \Config\Database;
 class MAuth
 {
 
-    protected $db;
+    public function __construct()
+    {
+    }
 
     public function validateUser($username)
     {
         $db = Database::connect();
-        $this->db = $db->table('v_users');
+        $builder = $db->table('v_users');
 
-        $this->db->select('*');
-        $this->db->where('username', $username);
-        $query = $this->db->get();
+        $builder->select('*');
+        $builder->where('username', $username);
+        $query = $builder->get();
         return $query->getRowArray();
     }
 
     public function getUserPrivileges($userGroupId)
     {
+        $db = Database::connect();
+        $builder = $db->table('v_modules');
+
         // Jika usergroup -1/null, maka user adalah Super Admin
         $isSuperAdmin = !isset($userGroupId) || $userGroupId == "-1";
 
@@ -30,28 +34,28 @@ class MAuth
         /**
          * Dapatkan module yang tidak perlu privilege
          */
-        $this->db->select('id');
-        $this->db->select('module_name');
-        $this->db->select('module_id_path');
-        $this->db->select('module_url');
+        $builder->select('id');
+        $builder->select('module_name');
+        $builder->select('module_id_path');
+        $builder->select('module_url');
 
         if ($isSuperAdmin) {
             /**
              * Untuk super_admin filter gunakan field super_admin
              */
-            $this->db->where('super_admin', 1);
+            $builder->where('super_admin', 1);
         } else {
             /**
              * Untuk administrator filter gunakan field need_privilege
              */
-            $this->db->where('need_privilege', 0);
+            $builder->where('need_privilege', 0);
         }
 
         // Filter untuk module system admin
-        $this->db->where('module_type', 1);
+        $builder->where('module_type', 1);
 
-        $query = $this->db->get('v_modules');
-        $modules = $query->result_array();
+        $query = $builder->get();
+        $modules = $query->getResultArray();
         foreach ($modules as $module) {
             $moduleId = $module['id'];
 
@@ -70,18 +74,19 @@ class MAuth
         if ($isSuperAdmin == false) {
 
             // Lakukan pengecekan privileges ke table user privileges
-            $this->db->select('module_id');
-            $this->db->select('module_name');
-            $this->db->select('module_id_path');
-            $this->db->select('module_url');
-            $this->db->select('can_add');
-            $this->db->select('can_delete');
-            $this->db->select('can_edit');
+            $builder = $db->table('v_user_privileges');
+            $builder->select('module_id');
+            $builder->select('module_name');
+            $builder->select('module_id_path');
+            $builder->select('module_url');
+            $builder->select('can_add');
+            $builder->select('can_delete');
+            $builder->select('can_edit');
 
-            $this->db->where('user_group_id', $userGroupId);
+            $builder->where('user_group_id', $userGroupId);
 
-            $query = $this->db->get('v_user_privileges');
-            $privileges = $query->result_array();
+            $query = $builder->get();
+            $privileges = $query->getResultArray();
             foreach ($privileges as $privilege) {
                 $moduleId = $privilege['module_id'];
 
