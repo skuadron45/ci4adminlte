@@ -18,6 +18,7 @@ class Filters extends BaseConfig
 		'AdminNotLogin' => [
 			'before' => [
 				'admin/*',
+				'/'
 			],
 			'after' => []
 		],
