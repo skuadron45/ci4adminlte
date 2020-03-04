@@ -38,4 +38,19 @@ class BaseController extends Controller
 			->setStatusCode($httpCode)
 			->setJSON($this->vars);
 	}
+
+	protected function outputJson($status, $message, $csrf = true)
+	{
+		if ($csrf) {
+			$this->vars['csrfName'] = csrf_token();
+			$this->vars['csrfToken'] = csrf_hash();
+		}
+		$this->vars['status'] = $status;
+		$this->vars['message'] = $message;
+		return $this->response
+			->setStatusCode(200)
+			->setJSON($this->vars);
+	}
+
+	
 }

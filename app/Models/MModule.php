@@ -20,7 +20,7 @@ class MModule
 		$builder->select("group_concat(DISTINCT id) AS ids", false);
 		$builder->where('show_on_privilege', 1);
 		$query = $builder->get();
-		$row = $query->getResultArray();
+		$row = $query->getRowArray();
 		$modulesIdsString = $row['ids'];
 		$modulesIds = [''];
 		if (isset($modulesIdsString)) {

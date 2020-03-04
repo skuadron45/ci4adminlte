@@ -8,7 +8,7 @@ class Adminlte
 {
 	private $auth;
 
-	private $baseView = 'default';
+	private $baseView = 'blankpage';
 
 	private $renderDebug = true;
 

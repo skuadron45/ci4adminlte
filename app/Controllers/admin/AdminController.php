@@ -11,6 +11,10 @@ use App\Controllers\BaseController;
 use App\Libraries\Adminlte;
 use App\Libraries\Auth;
 
+use App\Models\MHelper;
+use App\Models\MModule;
+use App\Models\MPrivilege;
+
 use Config\Services;
 
 class AdminController extends BaseController
@@ -61,10 +65,44 @@ class AdminController extends BaseController
 		if ($this->request->isAJAX()) {
 			if ($requestData = $this->request->getGet()) {
 				$output = $dataTable->getOutput($requestData);
-				print_var(json_encode($output));
+				return $this->response
+					->setJSON($output);
 			}
 		} else {
-			parent::outputError();
+			return parent::outputError();
 		}
+	}
+
+	protected function deleteData($table, $sourceTable = null, $delete = false)
+	{
+		$status = 'error';
+		$message = 'Data gagal dihapus!';
+		if ($this->request->getGet(null)) {
+
+			$paramId = $this->request->getGet('id');
+			$sourceTable = isset($sourceTable) ? $sourceTable : $table;
+
+			$mHelper = new MHelper();
+			$userGroup = $mHelper->rowArray($sourceTable, ['*'], ['id' => $paramId]);
+			if ($userGroup) {
+				$userId = $this->auth->getUserData('id');
+				$fill = array(
+					'is_deleted' => 1,
+					'deleted_by' => $userId
+				);
+				$errorMessage = $MHelper->updateWithId($paramId, $table, $fill);
+				//$errorMessage = '';
+				if (empty($errorMessage)) {
+					$status = 'success';
+					$message = "Data berhasil dihapus!";
+				} else {
+					$message = $errorMessage;
+				}
+			} else {
+				$status = 'warning';
+				$message = "Data tidak ditemukan!";
+			}
+		}
+		parent::outputJson($status, $message, false);
 	}
 }

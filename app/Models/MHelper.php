@@ -7,22 +7,6 @@ use \Config\Database;
 class MHelper
 {
 
-    private $errors = [];
-
-    private function getErrorMessage()
-    {
-        $total = count($this->errors);
-        return $total > 0 ? $this->errors[$total - 1] : '';
-    }
-
-    private function verifyErrorMessage()
-    {
-        $db = Database::connect();
-        if (!empty($db->error()['message'])) {
-            $this->errors[] = $db->error()['message'];
-        }
-    }
-
     private function select($table, $fields = [], $where = null)
     {
         $db = Database::connect();
@@ -97,11 +81,8 @@ class MHelper
 
         $builder = $db->table($table);
         $builder->update($fillData, $where);
-        $this->verifyErrorMessage();
 
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
 
     public function insert($table, array $fillData)
@@ -111,11 +92,8 @@ class MHelper
 
         $builder = $db->table($table);
         $builder->insert($fillData);
-        $this->verifyErrorMessage();
 
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
     public function delete($table, $where)
     {
@@ -125,11 +103,8 @@ class MHelper
 
         $builder = $db->table($table);
         $builder->delete($where);
-        $this->verifyErrorMessage();
 
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
 
     public function replace($table, array $fillData, $where)
@@ -141,12 +116,9 @@ class MHelper
         $builder->where($where);
         $builder->replace($fillData);
 
-        $this->verifyErrorMessage();
-
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
+    
     public function insert_id()
     {
         $db = Database::connect();

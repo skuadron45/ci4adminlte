@@ -40,6 +40,6 @@ function print_admin_site_url($url = "")
 function redirect_admin($url = "")
 {
 	if (isset($url)) {
-		redirect(get_admin_base($url));
+		redirect()->to(admin_site_url($url));
 	}
 }

@@ -7,8 +7,6 @@ use \Config\Database;
 class MPrivilege
 {
 
-    private $errors = [];
-
     public function getPrivileges($userGroupId)
     {
         $db = Database::connect();
@@ -31,20 +29,6 @@ class MPrivilege
         return $privileges;
     }
 
-    private function getErrorMessage()
-    {
-        $total = count($this->errors);
-        return $total > 0 ? $this->errors[$total - 1] : '';
-    }
-
-    private function verifyErrorMessage()
-    {
-        $db = Database::connect();
-        if (!empty($db->error()['message'])) {
-            $this->errors[] = $db->error()['message'];
-        }
-    }
-
     public function delete($paramId, $userId = 0)
     {
         $where = array(
@@ -61,7 +45,6 @@ class MPrivilege
         $builder = $db->table('tbl_user_groups');
         $builder->where($where);
         $builder->update($fill);
-        $this->verifyErrorMessage();
 
         // Penghapusan detail tbl_user_privileges bisa menggunaan trigger
         $where = array(
@@ -69,11 +52,8 @@ class MPrivilege
         );
         $builder = $db->table('tbl_user_privileges');
         $builder->delete($where);
-        $this->verifyErrorMessage();
 
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
 
     public function update($postData, $userGroupId)
@@ -94,7 +74,6 @@ class MPrivilege
         $builder = $db->table('tbl_user_groups');
         $builder->where($where);
         $builder->update($fill);
-        $this->verifyErrorMessage();
 
         $where = array(
             'user_group_id' => $userGroupId
@@ -102,7 +81,7 @@ class MPrivilege
 
         $builder = $db->table('tbl_user_privileges');
         $builder->delete($where);
-        $this->verifyErrorMessage();
+
 
         if (count($privileges) > 0) {
             foreach ($privileges as $key => $privilege) {
@@ -122,14 +101,10 @@ class MPrivilege
                 $builder = $db->table('tbl_user_privileges');
                 $builder->where($where);
                 $builder->replace($record);
-
-                $this->verifyErrorMessage();
             }
         }
 
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
 
     public function store($postData)
@@ -142,15 +117,12 @@ class MPrivilege
             'group_name' => $group
         );
 
+
         $db = Database::connect();
         $db->transStart();
-
         $builder = $db->table('tbl_user_groups');
         $builder->insert($fill);
-        $this->verifyErrorMessage();
-
         $userGroupId = $db->insertID();
-
         if ($userGroupId > 0) {
             if (count($privileges) > 0) {
                 $records = [];
@@ -166,12 +138,8 @@ class MPrivilege
                 }
                 $builder = $db->table('tbl_user_privileges');
                 $builder->insertBatch($records);
-                $this->verifyErrorMessage();
             }
         }
-
         $db->transComplete();
-        $errorMessage = $this->getErrorMessage();
-        return $errorMessage;
     }
 }
