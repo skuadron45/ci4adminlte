@@ -9,10 +9,16 @@ class Home extends AdminController
 {
 	public function index()
 	{
-		$autoload = Services::autoloader();
-		d($autoload->getNamespace());
 
-		$validator = Services::validation();
-        var_dump($validator->listErrors());
+		$successUrl = $this->auth->getSuccessUrl();
+
+		return $this->response->redirect(site_url($successUrl));
+
+
+		// $autoload = Services::autoloader();
+		// d($autoload->getNamespace());
+
+		// $validator = Services::validation();
+		// var_dump($validator->listErrors());
 	}
 }
