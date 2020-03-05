@@ -99,7 +99,7 @@ class Usergroup extends AdminController
                         $status = 'success';
                         $message = "Data berhasil tersimpan !";
                     } catch (\Throwable $th) {
-                        $message = $th->getMessage();
+                        throw new \CodeIgniter\Database\Exceptions\DatabaseException();
                     }
                 } else {
                     $message = $this->validator->listErrors('alert');

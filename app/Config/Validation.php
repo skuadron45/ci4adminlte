@@ -30,7 +30,7 @@ class Validation
 	public $templates = [
 		'list'   => 'CodeIgniter\Validation\Views\list',
 		'single' => 'CodeIgniter\Validation\Views\single',
-		'alert' => 'alert\list',
+		'alert' => 'alert/list',
 	];
 
 	//--------------------------------------------------------------------

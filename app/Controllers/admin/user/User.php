@@ -109,7 +109,7 @@ class User extends AdminController
         } else {
             $status = 'error';
             $message = 'Tidak memiliki hak untuk tambah atau ubah data!';
-            return parent::outputJson($status, $message, false);
+            return parent::outputJson('null', $message);
         }
     }
     private function fillData()
