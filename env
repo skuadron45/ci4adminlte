@@ -50,9 +50,9 @@
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = itcupuco_cms_ci4
-database.default.username = itcupuco_userci4
-database.default.password = Jgp3m53!
+database.default.database = root
+database.default.username =
+database.default.password =
 database.default.DBDriver = MySQLi
 
 # database.tests.hostname = localhost
