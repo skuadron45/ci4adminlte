@@ -6,7 +6,7 @@
 4. Library Datatable Server Side.
 5. Datatable Builder di file custom js.
 6. Form Builder untuk modal.
-7. Login Module
+7. Login User (Encrypt dan Decrypt)
 8. Add, Edit By Reload Page
 9. Add, Edit, Delete By Ajax Modal
 10. Hak Akses Add, Delete, Edit, View tiap modul. (Grup Pengguna)
