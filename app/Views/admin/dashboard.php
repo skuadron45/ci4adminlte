@@ -18,7 +18,9 @@ $this->extend('admin/layouts/index');
       </div>
       <div class="card-body">
         <?php
-        var_dump($this->getData()['debugs']);
+        if (ENVIRONMENT != 'production') {
+          var_dump($this->getData()['debugs']);
+        }
         ?>
       </div>
     </div>
