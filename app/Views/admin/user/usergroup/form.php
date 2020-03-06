@@ -283,7 +283,9 @@ $this->extend('admin/layouts/index');
       });
     }, function(jqXHR, textStatus, errorThrown) {
       HELPER.Html.loading(false);
-      HELPER.Notify.failJqhrReload(jqXHR, textStatus, errorThrown);
+      HELPER.Notify.failJqhr(jqXHR, textStatus, errorThrown, function() {
+        window.location = backWardUrl;
+      });
     });
   };
 </script>

@@ -19,6 +19,7 @@ use Config\Services;
 
 class AdminController extends BaseController
 {
+
 	protected $selectedModule = -1;
 
 	/**
@@ -65,11 +66,10 @@ class AdminController extends BaseController
 		if ($this->request->isAJAX()) {
 			if ($requestData = $this->request->getGet()) {
 				$output = $dataTable->getOutput($requestData);
-				return $this->response
-					->setJSON($output);
+				return $this->respond($output, 200);
 			}
 		} else {
-			return parent::outputError();
+			return $this->failForbidden();
 		}
 	}
 
@@ -90,19 +90,18 @@ class AdminController extends BaseController
 					'is_deleted' => 1,
 					'deleted_by' => $userId
 				);
-				$errorMessage = $MHelper->updateWithId($paramId, $table, $fill);
-				//$errorMessage = '';
-				if (empty($errorMessage)) {
+				try {
+					$mHelper->updateWithId($paramId, $table, $fill);
 					$status = 'success';
 					$message = "Data berhasil dihapus!";
-				} else {
-					$message = $errorMessage;
+				} catch (\Throwable $th) {
+					$message = $th->getMessage();
 				}
 			} else {
 				$status = 'warning';
 				$message = "Data tidak ditemukan!";
 			}
 		}
-		parent::outputJson($status, $message, false);
+		return parent::outputJson($status, $message);
 	}
 }

@@ -104,7 +104,7 @@ function DtBuilder(name, options) {
             }, function (jqXHR, textStatus, errorThrown) {
 
                 HELPER.Html.loading(false);
-                HELPER.Notify.failJqhr(jqXHR, textStatus, errorThrown);
+                HELPER.Notify.failJqhrReload(jqXHR, textStatus, errorThrown);
             });
         });
     }
@@ -415,7 +415,7 @@ var HELPER = (function ($) {
                 html = undefinedMessage;
             }
 
-            var types = ['success', 'info', 'warning', 'error', 'null'];
+            var types = ['success', 'info', 'warning', 'error', 'null', 'fail'];
 
             if (types.indexOf(type) === -1) {
                 type = 'error';
@@ -448,6 +448,17 @@ var HELPER = (function ($) {
                     swal = Swal.fire({
                         icon: 'error',
                         title: 'Error',
+                        html: html,
+                        allowOutsideClick: false,
+                        customClass: {
+                            content: 'text-danger',
+                        }
+                    });
+                    break;
+                case "fail":
+                    swal = Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
                         html: html,
                         allowOutsideClick: false,
                         customClass: {
@@ -511,14 +522,20 @@ var HELPER = (function ($) {
 
             var callbackDefault = function () {
             }
-            if (!(callback === null || callback === undefined)) {
+            if (HELPER.isset(callback)) {
                 callbackDefault = callback;
             }
 
             if (typeof errorThrown === "object") {
                 notif('', errorThrown.message, callbackDefault);
             } else {
-                notif(jqXHR.statusText, jqXHR.status + "-" + jqXHR.statusText, callbackDefault);
+                var json = jqXHR.responseJSON;
+                if (HELPER.isset(json)) {
+                    var errorMessage = json.messages.error;
+                    notif('fail', errorMessage, callbackDefault);
+                } else {
+                    notif('fail', jqXHR.status + "-" + jqXHR.statusText, callbackDefault);
+                }
             }
         }
 

@@ -52,9 +52,8 @@ class User extends AdminController
         if ($hasDeletePrivilege) {
             return parent::deleteData('tbl_users', 'v_administrators');
         } else {
-            $status = 'error';
             $message = 'Tidak memiliki hak untuk menghapus!';
-            return parent::outputJson($status, $message, false);
+            return $this->failUnauthorized($message);
         }
     }
 
@@ -78,7 +77,7 @@ class User extends AdminController
                 $this->vars['record'] = $record;
             }
         }
-        return parent::outputJson($status, $message, false);
+        return parent::outputJson($status, $message);
     }
 
     public function store()
@@ -107,9 +106,8 @@ class User extends AdminController
 
             return parent::outputJson($status, $message);
         } else {
-            $status = 'error';
             $message = 'Tidak memiliki hak untuk tambah atau ubah data!';
-            return parent::outputJson('null', $message);
+            return $this->failUnauthorized($message);
         }
     }
     private function fillData()

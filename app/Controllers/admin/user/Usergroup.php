@@ -109,7 +109,7 @@ class Usergroup extends AdminController
         } else {
             $status = 'error';
             $message = 'Tidak memiliki hak untuk tambah atau ubah data!';
-            return parent::outputJson($status, $message, false);
+            return $this->failUnauthorized($message);
         }
     }
 
@@ -142,7 +142,7 @@ class Usergroup extends AdminController
         } else {
             $status = 'error';
             $message = 'Tidak memiliki hak untuk tambah atau ubah data!';
-            return parent::outputJson($status, $message, false);
+            return $this->failUnauthorized($message);
         }
     }
 
@@ -152,9 +152,8 @@ class Usergroup extends AdminController
         if ($hasDeletePrivilege) {
             return $this->deleteData('v_user_groups');
         } else {
-            $status = 'error';
             $message = 'Tidak memiliki hak untuk menghapus!';
-            return parent::outputJson($status, $message, false);
+            return $this->failUnauthorized($message);
         }
     }
 
@@ -182,7 +181,7 @@ class Usergroup extends AdminController
                 $message = "Data tidak ditemukan!";
             }
         }
-        return parent::outputJson($status, $message, false);
+        return parent::outputJson($status, $message);
     }
 
     private function validation()

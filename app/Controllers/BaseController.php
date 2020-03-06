@@ -17,8 +17,12 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
+use CodeIgniter\API\ResponseTrait;
+
 class BaseController extends Controller
 {
+
+	use ResponseTrait;
 
 	protected $vars = [];
 
@@ -29,16 +33,6 @@ class BaseController extends Controller
 		parent::initController($request, $response, $logger);
 	}
 
-	protected function outputError($httpCode = 403, $message = 'Request forbidden!')
-	{
-		$status = 'error';
-		$this->vars['status'] = $status;
-		$this->vars['message'] = $message;
-		return $this->response
-			->setStatusCode($httpCode)
-			->setJSON($this->vars);
-	}
-
 	protected function outputJson($status, $message, $csrf = true)
 	{
 		if ($csrf) {
@@ -47,10 +41,7 @@ class BaseController extends Controller
 		}
 		$this->vars['status'] = $status;
 		$this->vars['message'] = $message;
-		return $this->response
-			->setStatusCode(200)
-			->setJSON($this->vars);
-	}
 
-	
+		return $this->respond($this->vars, 200);
+	}
 }
