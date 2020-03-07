@@ -1,0 +1,44 @@
+{
+  "name": "cposhop",
+  "version": "1.0.0",
+  "description": "Company Profile And OShop Module",
+  "main": "index.js",
+  "dependencies": {
+    "ionicons": "^2.0.1"
+  },
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "admin-lte": "^3.0.2",
+    "axios": "^0.19",
+    "cross-env": "^7.0",
+    "js-cookie": "^2.2.1",
+    "jstree": "^3.3.9",
+    "laravel-mix": "^5.0.1",
+    "lodash": "^4.17.13",
+    "noty": "^3.2.0-beta",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.15.2",
+    "sass-loader": "^8.0.0",
+    "select2-bootstrap-theme": "0.1.0-beta.10",
+    "sweetalert2": "^9.7.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skuadron45/cposhop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skuadron45/cposhop/issues"
+  },
+  "homepage": "https://github.com/skuadron45/cposhop#readme"
+}

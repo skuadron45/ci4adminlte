@@ -12,33 +12,11 @@ $appName = isset($appName) ? $appName : '';
     <title>{appName}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Font Awesome -->
-    <?php print_link_resource("assets/admin/plugins/fontawesome-free/css/all.min.css"); ?>
-
-    <!-- Ionicons -->
-    <?php print_link_resource("assets/admin/plugins/ionicons/css/ionicons.min.css"); ?>
-
-    <!-- Tempusdominus Bbootstrap 4 -->
-    <?php print_link_resource("assets/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"); ?>
-
-    <!-- iCheck -->
-    <?php print_link_resource("assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css"); ?>
-
-    <!-- Toastr -->
-    <?php print_link_resource("assets/admin/plugins/toastr/toastr.min.css"); ?>
-
-    <!-- SweetAlert2 -->
-    <?php print_link_resource("assets/admin/plugins/sweetalert2/sweetalert2.css"); ?>
-    <?php print_link_resource("assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"); ?>
-
-    <!-- Theme style -->
-    <?php print_link_resource("assets/admin/dist/css/adminlte.min.css"); ?>
+    <!-- Login style -->
+    <?php print_link_resource("assets/admin/login.css"); ?>
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-    <!-- Custom style -->
-    <?php print_link_resource("assets/admin/custom/custom.css"); ?>
 
 </head>
 
@@ -172,26 +150,12 @@ $appName = isset($appName) ? $appName : '';
         </footer>
     </div>
 
-    <!-- JS Cookie -->
-    <?php print_script_resource("assets/admin/plugins/js-cookie/js.cookie.js"); ?>
-    <!-- jQuery -->
-    <?php print_script_resource("assets/admin/plugins/jquery/jquery.min.js"); ?>
-    <!-- jQuery UI 1.11.4 -->
-    <?php print_script_resource("assets/admin/plugins/jquery-ui/jquery-ui.min.js"); ?>
+    <?php print_script_resource("assets/admin/login.js"); ?>
+
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <!-- Bootstrap 4 -->
-    <?php print_script_resource("assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
-    <!-- SweetAlert2 -->
-    <?php print_script_resource("assets/admin/plugins/sweetalert2/sweetalert2.js"); ?>
-    <!-- Toastr -->
-    <?php print_script_resource("assets/admin/plugins/toastr/toastr.min.js"); ?>
-    <!-- AdminLTE App -->
-    <?php print_script_resource("assets/admin/dist/js/adminlte.min.js"); ?>
-    <!-- Custom JS -->
-    <?php print_script_resource("assets/admin/custom/custom.js"); ?>
     <?php
     if (isset($status)) {
     ?>
