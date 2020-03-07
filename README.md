@@ -17,6 +17,7 @@
 15. Redirect Success Url/Home Modul tiap User setelah Login.
 16. Stored Procedure di database
 17. Function di database.
+18. Laravel-mix untuk management assets
 
 Dan lain-lain
 
@@ -26,10 +27,9 @@ Yang akan di-explorer selanjutnya:
 2. Penggunaan Model dan Entity
 3. Module Profil Pengguna
 4. HMVC module agar memaksimalkan namespaces
+
 Dan lain-lain
-
 Install
-
 Download atau clone git:
 
 1. git -clone https://github.com/skuadron45/ci4adminlte
