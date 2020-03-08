@@ -1,4 +1,4 @@
-# Simple RBAC AdminLte3 + CI 4
+# Project - Simple RBAC Using CI 4 + AdminLte3
 
 1. Implementasi Filters terkait Autentikasi
 2. View Parser, View Renderer
@@ -19,10 +19,10 @@
 17. Function di database.
 
 ## Update 07-03-2020 !
-18. Laravel-mix untuk management assets (bundling menjadi 1 js file dan 1 css file)
+18. Compiling Assets (Mix) menggunakan Laravel Mix, (1 js dan 1 css untuk template adminlte)
 19. Ubah request login menggunakan ajax
 
-## Yang akan di-explorer selanjutnya:
+## Next Update
 1. Penggunaan Database Migration
 2. Penggunaan Model dan Entity
 3. Module Profil Pengguna
