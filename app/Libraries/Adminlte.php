@@ -192,12 +192,10 @@ class Adminlte
 
 	public function showLoginPage()
 	{
-
-		$contentView = view(get_admin_view('login'), $this->vars);
-		//echo $contentView;
-		//echo esc($contentView);
-		$parser = \Config\Services::parser();
-		$parser = $parser->setData($this->vars);
-		echo $parser->renderString($contentView);
+		// $contentView = view(get_admin_view('login'), $this->vars);
+		// $parser = Services::parser();
+		// $parser = $parser->setData($this->vars);
+		// echo $parser->renderString($contentView);
+		echo view(get_admin_view('login'), $this->vars);
 	}
 }

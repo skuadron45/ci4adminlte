@@ -5,7 +5,6 @@
  */
 $this->extend('admin/layouts/index');
 ?>
-
 <?php $this->section('main-content'); ?>
 <section class="content">
   <?php
