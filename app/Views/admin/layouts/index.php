@@ -19,11 +19,8 @@ $sidebar['modules'] = isset($sidebar['modules']) ? $sidebar['modules'] : '';
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Admin style -->
-  <?php print_link_resource("assets/admin/admin.css"); ?>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- App CSS -->
+  <?php print_link_resource("assets/admin/css/app.css"); ?>
 
   <script type="text/javascript">
     const _BASE_URL = '<?= base_url(); ?>';
@@ -147,8 +144,8 @@ $sidebar['modules'] = isset($sidebar['modules']) ? $sidebar['modules'] : '';
     }
   </script>
 
-
-  <?php print_script_resource("assets/admin/admin.js"); ?>
+  <!-- App JS -->
+  <?php print_script_resource("assets/admin/js/app.js"); ?>
 
   <script>
     $.widget.bridge('uibutton', $.ui.button)

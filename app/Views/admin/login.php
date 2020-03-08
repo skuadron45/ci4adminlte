@@ -11,12 +11,9 @@ $appName = isset($appName) ? $appName : '';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{appName}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Login style -->
-    <?php print_link_resource("assets/admin/login.css"); ?>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    
+    <!-- App CSS -->
+    <?php print_link_resource("assets/admin/css/app.css"); ?>
 
 </head>
 
@@ -150,12 +147,15 @@ $appName = isset($appName) ? $appName : '';
         </footer>
     </div>
 
-    <?php print_script_resource("assets/admin/login.js"); ?>
+
+    <!-- App JS -->
+    <?php print_script_resource("assets/admin/js/app.js"); ?>
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
+
     <?php
     if (isset($status)) {
     ?>
