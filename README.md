@@ -1,4 +1,4 @@
-# Simple RBAC AdminLte3 + CI 4 
+# Simple RBAC AdminLte3 + CI 4
 
 1. Implementasi Filters terkait Autentikasi
 2. View Parser, View Renderer
@@ -17,41 +17,53 @@
 15. Redirect Success Url/Home Modul tiap User setelah Login.
 16. Stored Procedure di database
 17. Function di database.
-18. Laravel-mix untuk management assets
 
-Dan lain-lain
+## Update 07-03-2020 !
+18. Laravel-mix untuk management assets (bundling menjadi 1 js file dan 1 css file)
+19. Ubah request login menggunakan ajax
 
-Yang akan di-explorer selanjutnya:
-
+## Yang akan di-explorer selanjutnya:
 1. Penggunaan Database Migration
 2. Penggunaan Model dan Entity
 3. Module Profil Pengguna
 4. HMVC module agar memaksimalkan namespaces
+5. ...
 
-Dan lain-lain
-Install
-Download atau clone git:
+# Cara Install
+## Manual
+1. Download Zip
+2. Ekstrak zip file ke path direktori yang diinginkan. (htdocs for xampp or www for laragon)
+3. Buka command prompt/shell, cd ke lokasi folder tujuan pada poin 2.
+4. Lakukan perintah: composer update
+5. import file sql cms_ci4.sql
 
-1. git -clone https://github.com/skuadron45/ci4adminlte
-2. composer update
-3. import file sql cms_ci4.sql
+## Clone Git
+1. Buka command prompt/shell, cd path direktori yang diinginkan. (htdocs for xampp or www for laragon)
+2. Lakukan perintah: git -clone https://github.com/skuadron45/ci4adminlte
+3. Lakukan perintah: composer update
+4. import file sql cms_ci4.sql
+
+Untuk menjalankan aplikasi, silahkan baca user guide CI4 di link berikut:
+https://codeigniter4.github.io/userguide/installation/running.html
+
+## User login:
+
+Administrator:
 
 username: rika
 password: rika
-
 Home module : Profile
 
 username: zahid
 password: zahid
-
 Home module : Dashboard
+
+*Hak Akses saya buat tidak dapat melakukan Add, Edit, Delete
 
 Super Admin:
 
 username: root
 password: root
-
-Hak Akses saya buat tidak dapat melakukan Add, Edit, Delete
 
 Semoga bermanfaat,
 
@@ -60,6 +72,5 @@ https://github.com/skuadron45/ci4adminlte
 
 Demo:
 http://ci4test.itcupu.com/login
-
 
 *(Password root hanya berlaku di localhost)
