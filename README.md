@@ -51,11 +51,15 @@ https://codeigniter4.github.io/userguide/installation/running.html
 Administrator:
 
 username: rika
+
 password: rika
+
 Home module : Profile
 
 username: zahid
+
 password: zahid
+
 Home module : Dashboard
 
 *Hak Akses saya buat tidak dapat melakukan Add, Edit, Delete
@@ -63,6 +67,7 @@ Home module : Dashboard
 Super Admin:
 
 username: root
+
 password: root
 
 Semoga bermanfaat,
