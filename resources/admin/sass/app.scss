@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700");
 
+@import url("~@lgaitan/pace-progress/dist/themes/blue/pace-theme-loading-bar.css");
+
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
@@ -10,6 +12,8 @@
 @import "node_modules/tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4-build.scss";
 
 @import "node_modules/select2/src/scss/core.scss";
+
+@import "~select2-bootstrap-theme/dist/select2-bootstrap.css";
 
 @import "~icheck-bootstrap/icheck-bootstrap.min.css";
 
@@ -23,3 +27,5 @@
 @import "node_modules/admin-lte/build/scss/AdminLTE.scss";
 
 @import "~overlayscrollbars/css/OverlayScrollbars.css";
+
+@import "../../../resources/admin/custom/css/custom.css";

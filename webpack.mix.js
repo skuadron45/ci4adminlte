@@ -1,19 +1,12 @@
 let mix = require('laravel-mix');
+mix.setPublicPath('public');
 
 const publicAssetsAdminPath = 'public/assets/admin/';
-
-mix.setPublicPath('public');
-mix.sass('resources/admin/sass/app.scss', 'public/assets/admin/css');
-
-let appCssFiles = [];
-appCssFiles.push('resources/general/plugins/pace-progress/themes/blue/pace-theme-loading-bar.css');
-appCssFiles.push('public/assets/admin/css/app.css');
-appCssFiles.push('node_modules/select2-bootstrap-theme/dist/select2-bootstrap.css');
-
-appCssFiles.push('resources/admin/custom/css/custom.css');
-mix.combine(appCssFiles, publicAssetsAdminPath + 'css/app.css');
-
 const resourceRootPath = 'node_modules/';
+
+mix.sass('resources/admin/sass/app.scss', 'public/assets/admin/css');
+//mix.js('resources/admin/js/app.js', 'public/assets/admin/js');
+
 let appJsFiles = [];
 appJsFiles.push(resourceRootPath + 'js-cookie/src/js.cookie.js');
 appJsFiles.push(resourceRootPath + 'jquery/dist/jquery.js');
@@ -32,12 +25,15 @@ appJsFiles.push(resourceRootPath + 'overlayscrollbars/js/jquery.overlayScrollbar
 appJsFiles.push(resourceRootPath + 'datatables.net/js/jquery.dataTables.js');
 appJsFiles.push(resourceRootPath + 'datatables.net-bs4/js/dataTables.bootstrap4.js');
 appJsFiles.push(resourceRootPath + 'datatables.net-scroller/js/dataTables.scroller.js');
+
 appJsFiles.push(resourceRootPath + 'jstree/dist/jstree.js');
 appJsFiles.push(resourceRootPath + 'jstree/src/misc.js');
-appJsFiles.push('resources/general/plugins/pace-progress/pace.js');
 
 appJsFiles.push(resourceRootPath + 'admin-lte/dist/js/adminlte.js');
+
+appJsFiles.push(resourceRootPath +'@lgaitan/pace-progress/dist/pace.js');
 appJsFiles.push('resources/admin/custom/js/*.js');
+
 mix.combine(appJsFiles, publicAssetsAdminPath + 'js/app.js');
 
 mix.copy(resourceRootPath + 'admin-lte/dist/img/', publicAssetsAdminPath + 'dist/img/');
