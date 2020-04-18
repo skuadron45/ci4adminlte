@@ -8,7 +8,8 @@
   "prefer-stable": true,
   "require": {
     "php": ">=7.2",
-    "codeigniter4/codeigniter4": "dev-develop"
+    "codeigniter4/codeigniter4": "dev-develop",
+    "skuadron45/ci4adminrbac": "dev-master"
   },
   "require-dev": {
     "mikey179/vfsstream": "1.6.*",
@@ -16,11 +17,6 @@
   },
   "autoload-dev": {
     "psr-4": {}
-  },
-  "autoload": {
-    "psr-4": {
-      "Ci4adminrbac\\": "modules/ci4adminrbac/src"
-    }
   },
   "scripts": {
     "test": "phpunit",
