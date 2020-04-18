@@ -1,15 +1,42 @@
 {
-	"name": "skuadron45/ci4adminlte",
-	"type": "project",
-	"description": "CodeIgniter4 starter app",
-	"homepage": "https://codeigniter.com",
-	"license": "MIT",
-	"minimum-stability": "beta",
-	"require": {
-		"php": ">=7.2",
-		"codeigniter4/framework": "^4"
-	},
-	"require-dev": {
-		"fzaninotto/faker": "^1.9"
-	}
+  "name": "codeigniter4/appstarter",
+  "type": "project",
+  "description": "CodeIgniter4 starter app",
+  "homepage": "https://codeigniter.com",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.2",
+    "codeigniter4/codeigniter4": "dev-develop"
+  },
+  "require-dev": {
+    "mikey179/vfsstream": "1.6.*",
+    "phpunit/phpunit": "8.5.*"
+  },
+  "autoload-dev": {
+    "psr-4": {}
+  },
+  "autoload": {
+    "psr-4": {
+      "Ci4adminrbac\\": "modules/ci4adminrbac/src"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "post-update-cmd": [
+      "@composer dump-autoload"
+    ]
+  },
+  "support": {
+    "forum": "http://forum.codeigniter.com/",
+    "source": "https://github.com/codeigniter4/CodeIgniter4",
+    "slack": "https://codeigniterchat.slack.com"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/codeigniter4/codeigniter4"
+    }
+  ]
 }

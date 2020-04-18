@@ -1,24 +1,12 @@
-<?php
+<?php namespace App\Controllers;
 
-namespace App\Controllers;
-
-use App\Controllers\Admin\AdminController;
-use Config\Services;
-
-class Home extends AdminController
+class Home extends BaseController
 {
 	public function index()
 	{
-
-		$successUrl = $this->auth->getSuccessUrl();
-
-		return $this->response->redirect(site_url($successUrl));
-
-
-		// $autoload = Services::autoloader();
-		// d($autoload->getNamespace());
-
-		// $validator = Services::validation();
-		// var_dump($validator->listErrors());
+		return view('welcome_message');
 	}
+
+	//--------------------------------------------------------------------
+
 }

@@ -1,9 +1,7 @@
-<?php
-
-namespace Config;
+<?php namespace Config;
 
 use CodeIgniter\Config\Services as CoreServices;
-use App\Libraries\Auth;
+use CodeIgniter\Config\BaseConfig;
 
 require_once SYSTEMPATH . 'Config/Services.php';
 
@@ -32,12 +30,4 @@ class Services extends CoreServices
 	//
 	//        return new \CodeIgniter\Example();
 	//    }
-
-	public static function auth($getShared = true)
-	{
-		if ($getShared) {
-			return static::getSharedInstance('auth');
-		}
-		return new Auth();
-	}
 }

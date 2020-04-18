@@ -1,5 +1,4 @@
 <?php
-
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
@@ -10,8 +9,6 @@ use CodeIgniter\Config\BaseConfig;
  * These are the settings used for encryption, if you don't pass a parameter
  * array to the encrypter for creation/initialization.
  */
-$key = hex2bin('e3464c731115cf50ab1b29de0ff4c3ce');
-defined("ENCRYPTKEY") or define("ENCRYPTKEY", $key);
 class Encryption extends BaseConfig
 {
 	/*
@@ -24,7 +21,7 @@ class Encryption extends BaseConfig
 	  | See the user guide for more info.
 	 */
 
-	public $key = ENCRYPTKEY;
+	public $key = '';
 
 	/*
 	  |--------------------------------------------------------------------------
@@ -35,4 +32,5 @@ class Encryption extends BaseConfig
 	  | The default driver, if you don't specify one, is 'OpenSSL'.
 	 */
 	public $driver = 'OpenSSL';
+
 }

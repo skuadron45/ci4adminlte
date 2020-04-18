@@ -1,6 +1,4 @@
-<?php
-
-namespace Config;
+<?php namespace Config;
 
 require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
 
@@ -73,8 +71,7 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
 		 *       'MyClass'   => '/path/to/class/file.php'
 		 *   ];
 		 */
-		$classmap = [
-		];
+		$classmap = [];
 
 		//--------------------------------------------------------------------
 		// Do Not Edit Below This Line

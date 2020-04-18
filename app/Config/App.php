@@ -195,7 +195,7 @@ class App extends BaseConfig
 	public $sessionDriver            = 'CodeIgniter\Session\Handlers\DatabaseHandler';
 	public $sessionCookieName        = 'cposhop';
 	public $sessionExpiration        = 7200;
-	public $sessionSavePath          = '_sessions';
+	public $sessionSavePath          = 'ci_sessions';
 	public $sessionMatchIP           = TRUE;
 	public $sessionTimeToUpdate      = 0;
 	public $sessionRegenerateDestroy = TRUE;

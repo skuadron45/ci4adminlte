@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 /**
@@ -17,31 +16,31 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
-use CodeIgniter\API\ResponseTrait;
-
 class BaseController extends Controller
 {
 
-	use ResponseTrait;
+	/**
+	 * An array of helpers to be loaded automatically upon
+	 * class instantiation. These helpers will be available
+	 * to all other controllers that extend BaseController.
+	 *
+	 * @var array
+	 */
+	protected $helpers = [];
 
-	protected $vars = [];
-
-	protected $helpers = ['general', 'url'];
-
+	/**
+	 * Constructor.
+	 */
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
+		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
+
+		//--------------------------------------------------------------------
+		// Preload any models, libraries, etc, here.
+		//--------------------------------------------------------------------
+		// E.g.:
+		// $this->session = \Config\Services::session();
 	}
 
-	protected function outputJson($status, $message, $csrf = true)
-	{
-		if ($csrf) {
-			$this->vars['csrfName'] = csrf_token();
-			$this->vars['csrfToken'] = csrf_hash();
-		}
-		$this->vars['status'] = $status;
-		$this->vars['message'] = $message;
-
-		return $this->respond($this->vars, 200);
-	}
 }
