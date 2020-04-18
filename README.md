@@ -1,66 +1,81 @@
-# CodeIgniter 4 Application Starter
+# Project - Simple RBAC Using CI 4 + AdminLte3
 
-## What is CodeIgniter?
+1. Implementasi Filters terkait Autentikasi
+2. View Parser, View Renderer
+3. ResponseTrait
+4. Library Datatable Server Side.
+5. Datatable Builder di file custom js.
+6. Form Builder untuk modal.
+7. Login User (Encrypt dan Decrypt)
+8. Add, Edit By Reload Page
+9. Add, Edit, Delete By Ajax Modal
+10. Hak Akses Add, Delete, Edit, View tiap modul. (Grup Pengguna)
+11. Template AdminLte3, Sweet Alert, Pace Js untuk loading bar.
+12. Model yang ada masih menggunakan cara CI3 (belum extend CodeIgniter\Model)
+13. CSRF Filter
+14. Mengakali Dynamic BASE URL seperti CI3 di Config/App.php
+15. Redirect Success Url/Home Modul tiap User setelah Login.
+16. Stored Procedure di database
+17. Function di database.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+## Update 07-03-2020 !
+18. Compiling Assets (Mix) menggunakan Laravel Mix, (1 js dan 1 css untuk template adminlte)
+19. Ubah request login menggunakan ajax
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Next Update
+1. Penggunaan Database Migration
+2. Penggunaan Model dan Entity
+3. Module Profil Pengguna
+4. HMVC module agar memaksimalkan namespaces
+5. ...
 
-**This is pre-release code and should not be used in production sites.**
+# Cara Install
+## Manual
+1. Download Zip
+2. Ekstrak zip file ke path direktori yang diinginkan. (htdocs for xampp or www for laragon)
+3. Buka command prompt/shell, cd ke lokasi folder tujuan pada poin 2.
+4. Lakukan perintah: composer update
+5. import file sql cms_ci4.sql
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+## Clone Git
+1. Buka command prompt/shell, cd path direktori yang diinginkan. (htdocs for xampp or www for laragon)
+2. Lakukan perintah: git -clone https://github.com/skuadron45/ci4adminlte
+3. Lakukan perintah: composer update
+4. import file sql cms_ci4.sql
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Untuk menjalankan aplikasi, silahkan baca user guide CI4 di link berikut:
+https://codeigniter4.github.io/userguide/installation/running.html
 
-## Installation & updates
+## User login:
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Administrator:
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+username: rika
 
-## Setup
+password: rika
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Home module : Profile
 
-## Important Change with index.php
+username: zahid
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+password: zahid
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Home module : Dashboard
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
+*Hak Akses saya buat tidak dapat melakukan Add, Edit, Delete
 
-## Repository Management
+Super Admin:
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+username: root
 
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+password: root
 
-## Server Requirements
+Semoga bermanfaat,
 
-PHP version 7.2 or higher is required, with the following extensions installed: 
+Github:
+https://github.com/skuadron45/ci4adminlte
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Demo:
+http://ci4test.itcupu.com/login
 
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+*(Password root hanya berlaku di localhost)
