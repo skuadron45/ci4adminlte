@@ -193,7 +193,7 @@ class App extends BaseConfig
 	|
 	*/
 	public $sessionDriver            = 'CodeIgniter\Session\Handlers\DatabaseHandler';
-	public $sessionCookieName        = 'cposhop';
+	public $sessionCookieName        = 'ci4adminlte';
 	public $sessionExpiration        = 7200;
 	public $sessionSavePath          = 'ci_sessions';
 	public $sessionMatchIP           = TRUE;
@@ -254,9 +254,9 @@ class App extends BaseConfig
 	| CSRFRegenerate  = Regenerate token on every submission
 	| CSRFRedirect    = Redirect to previous page with error on failure
 	*/
-	public $CSRFTokenName  = 'csrf_cposhop_token';
+	public $CSRFTokenName  = 'csrf_ci4adminlte_token';
 	public $CSRFHeaderName = 'X-CSRF-TOKEN';
-	public $CSRFCookieName = 'csrf_cposhop_cookie';
+	public $CSRFCookieName = 'csrf_ci4adminlte_cookie';
 	public $CSRFExpire     = 7200;
 	public $CSRFRegenerate = true;
 	public $CSRFRedirect   = false;
