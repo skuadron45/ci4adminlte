@@ -28,10 +28,9 @@ git -clone https://github.com/skuadron45/ci4adminlte
 composer update --no-dev
 ```
 
-Untuk menjalankan aplikasi, silahkan baca user guide CI4 di link berikut:
-https://codeigniter4.github.io/userguide/installation/running.html
+Untuk menjalankan aplikasi, silahkan baca **User Guide CI4** [di sini](https://codeigniter4.github.io/userguide/installation/running.html)
 
-# Spark Command Install Module
+# Spak Command Untuk Instalasi Modul
 ```
 php spark ci4adminrbac:install
 ```
