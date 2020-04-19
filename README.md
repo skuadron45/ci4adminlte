@@ -31,7 +31,21 @@ composer update --no-dev
 Untuk menjalankan aplikasi, silahkan baca user guide CI4 di link berikut:
 https://codeigniter4.github.io/userguide/installation/running.html
 
+# Spark Command Install Module
+```
+php spark ci4adminrbac:install
+```
+
 ## User login:
+
+Akses URL : [Base_URL sesuai config]/admin
+
+example:
+
+http://localhost:8080/admin -> bila menggunakan spark serve
+
+http://ci4adminlte.test/admin -> bila menggunakan virtual host (XAMPP/Laragon)
+
 
 **Administrator:**
 
