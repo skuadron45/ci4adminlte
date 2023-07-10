@@ -1,80 +1,62 @@
-# Project - Appstarter Untuk CodeIgniter 4 Simple RBAC
+# CodeIgniter 4 Application Starter
 
-Appstarter project untuk **CodeIgniter 4 Simple RBAC Module**, baca detail module [disini](https://github.com/skuadron45/ci4adminrbac)
+## What is CodeIgniter?
 
-# Siapkan Database
-Buat database dengan nama **ci4adminlte**
-    
-konfigurasi ada di **app/Config/Database.php**, silahkan ubah sesuai kebutuhan.
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
-# Cara Install
-## Manual
-1. Download Zip
-2. Ekstrak zip file ke path direktori yang diinginkan. (htdocs for xampp or www for laragon)
-3. Buka CMD/Shell, cd ke lokasi folder tujuan pada poin 2.
-4. Lakukan perintah:
-```
-composer update --no-dev
-```
+This repository holds a composer-installable app starter.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-## Clone Git
-1. Buka CMD/Shell, CD path direktori yang diinginkan. (htdocs for xampp or www for laragon)
-2. Lakukan perintah: 
-```
-git -clone https://github.com/skuadron45/ci4adminlte
-```
-3. Lakukan perintah: 
-```
-composer update --no-dev
-```
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-Untuk menjalankan aplikasi, silahkan baca **User Guide CI4** [di sini](https://codeigniter4.github.io/userguide/installation/running.html)
+The user guide corresponding to the latest version of the framework can be found
+[here](https://codeigniter4.github.io/userguide/).
 
-# Spak Command Untuk Instalasi Modul
-```
-php spark ci4adminrbac:install
-```
+## Installation & updates
 
-## User login:
+`composer create-project codeigniter4/appstarter` then `composer update` whenever
+there is a new release of the framework.
 
-Akses URL : [Base_URL sesuai config]/admin
+When updating, check the release notes to see if there are any changes you might need to apply
+to your `app` folder. The affected files can be copied or merged from
+`vendor/codeigniter4/framework/app`.
 
-example:
+## Setup
 
-http://localhost:8080/admin -> bila menggunakan spark serve
+Copy `env` to `.env` and tailor for your app, specifically the baseURL
+and any database settings.
 
-http://ci4adminlte.test/admin -> bila menggunakan virtual host (XAMPP/Laragon)
+## Important Change with index.php
 
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-**Administrator:**
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-username: rika
+**Please** read the user guide for a better explanation of how CI4 works!
 
-password: rika
+## Repository Management
 
-Home module : Profile
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-username: zahid
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-password: zahid
+## Server Requirements
 
-Home module : Dashboard
+PHP version 7.4 or higher is required, with the following extensions installed:
 
-*Hak Akses saya buat tidak dapat melakukan Add, Edit, Delete
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
-**Super Admin:**
+Additionally, make sure that the following extensions are enabled in your PHP:
 
-username: root
-
-password: root
-
-Semoga bermanfaat,
-
-Github:
-
-https://github.com/skuadron45/ci4adminlte
-
-Demo:
-http://ci4test.itcupu.com/login
-
-*(Password root hanya berlaku di localhost)
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library

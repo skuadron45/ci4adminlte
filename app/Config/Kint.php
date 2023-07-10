@@ -1,62 +1,51 @@
-<?php namespace Config;
+<?php
 
-use Kint\Renderer\Renderer;
+namespace Config;
+
 use CodeIgniter\Config\BaseConfig;
+use Kint\Renderer\AbstractRenderer;
 
+/**
+ * --------------------------------------------------------------------------
+ * Kint
+ * --------------------------------------------------------------------------
+ *
+ * We use Kint's `RichRenderer` and `CLIRenderer`. This area contains options
+ * that you can set to customize how Kint works for you.
+ *
+ * @see https://kint-php.github.io/kint/ for details on these settings.
+ */
 class Kint extends BaseConfig
 {
-	/*
-	|--------------------------------------------------------------------------
-	| Kint
-	|--------------------------------------------------------------------------
-	|
-	| We use Kint's RichRenderer and CLIRenderer. This area contains options
-	| that you can set to customize how Kint works for you.
-	|
-	| For details on these settings, see Kint's docs:
-	|	https://kint-php.github.io/kint/
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Global Settings
+    |--------------------------------------------------------------------------
+    */
 
-	/*
-	|--------------------------------------------------------------------------
-	| Global Settings
-	|--------------------------------------------------------------------------
-	*/
+    public $plugins;
+    public int $maxDepth           = 6;
+    public bool $displayCalledFrom = true;
+    public bool $expanded          = false;
 
-	public $plugins = null;
+    /*
+    |--------------------------------------------------------------------------
+    | RichRenderer Settings
+    |--------------------------------------------------------------------------
+    */
+    public string $richTheme = 'aante-light.css';
+    public bool $richFolder  = false;
+    public int $richSort     = AbstractRenderer::SORT_FULL;
+    public $richObjectPlugins;
+    public $richTabPlugins;
 
-	public $maxDepth = 6;
-
-	public $displayCalledFrom = true;
-
-	public $expanded = false;
-
-	/*
-	|--------------------------------------------------------------------------
-	| RichRenderer Settings
-	|--------------------------------------------------------------------------
-	*/
-	public $richTheme = 'aante-light.css';
-
-	public $richFolder = false;
-
-	public $richSort = Renderer::SORT_FULL;
-
-	public $richObjectPlugins = null;
-
-	public $richTabPlugins = null;
-
-	/*
-	|--------------------------------------------------------------------------
-	| CLI Settings
-	|--------------------------------------------------------------------------
-	*/
-	public $cliColors = true;
-
-	public $cliForceUTF8 = false;
-
-	public $cliDetectWidth = true;
-
-	public $cliMinWidth = 40;
+    /*
+    |--------------------------------------------------------------------------
+    | CLI Settings
+    |--------------------------------------------------------------------------
+    */
+    public bool $cliColors      = true;
+    public bool $cliForceUTF8   = false;
+    public bool $cliDetectWidth = true;
+    public int $cliMinWidth     = 40;
 }
