@@ -246,16 +246,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skuadron45/ci4adminrbac.git",
-                "reference": "c3a79ec99a8e0a456b32113e2844ef4a41015642"
+                "reference": "32e027402a8d385b31774cb990d4273a02bae60d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skuadron45/ci4adminrbac/zipball/c3a79ec99a8e0a456b32113e2844ef4a41015642",
-                "reference": "c3a79ec99a8e0a456b32113e2844ef4a41015642",
+                "url": "https://api.github.com/repos/skuadron45/ci4adminrbac/zipball/32e027402a8d385b31774cb990d4273a02bae60d",
+                "reference": "32e027402a8d385b31774cb990d4273a02bae60d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "codeigniter4/codeigniter4": "dev-develop",
@@ -281,9 +281,9 @@
             "description": "Codeigniter 4 Admin module With Basic RBAC",
             "support": {
                 "issues": "https://github.com/skuadron45/ci4adminrbac/issues",
-                "source": "https://github.com/skuadron45/ci4adminrbac/tree/1.0.2"
+                "source": "https://github.com/skuadron45/ci4adminrbac/tree/1.0.3"
             },
-            "time": "2023-07-10T18:15:52+00:00"
+            "time": "2023-07-10T18:21:41+00:00"
         }
     ],
     "packages-dev": [
