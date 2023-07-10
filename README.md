@@ -74,7 +74,4 @@ Github:
 
 https://github.com/skuadron45/ci4adminlte
 
-Demo:
-http://ci4test.itcupu.com/login
-
 *(Password root hanya berlaku di localhost)
