@@ -75,3 +75,5 @@ Github:
 https://github.com/skuadron45/ci4adminlte
 
 *(Password root hanya berlaku di localhost)
+
+![capture](https://raw.githubusercontent.com/skuadron45/ci4adminlte/master/capture.png)
