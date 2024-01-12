@@ -39,7 +39,7 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
 }
 
 // We want errors to be shown when using it from the CLI.
-error_reporting(-1);
+error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 /**
@@ -77,6 +77,11 @@ require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstra
 // Load environment settings from .env files into $_SERVER and $_ENV
 require_once SYSTEMPATH . 'Config/DotEnv.php';
 (new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
+
+// Define ENVIRONMENT
+if (! defined('ENVIRONMENT')) {
+    define('ENVIRONMENT', env('CI_ENVIRONMENT', 'production'));
+}
 
 // Grab our CodeIgniter
 $app = Config\Services::codeigniter();

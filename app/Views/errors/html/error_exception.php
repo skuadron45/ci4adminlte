@@ -45,6 +45,30 @@ $errorId = uniqid('error', true);
     </div>
 
     <div class="container">
+        <?php
+        $last = $exception;
+
+        while ($prevException = $last->getPrevious()) {
+            $last = $prevException;
+            ?>
+
+    <pre>
+    Caused by:
+    <?= esc(get_class($prevException)), esc($prevException->getCode() ? ' #' . $prevException->getCode() : '') ?>
+
+    <?= nl2br(esc($prevException->getMessage())) ?>
+    <a href="https://www.duckduckgo.com/?q=<?= urlencode(get_class($prevException) . ' ' . preg_replace('#\'.*\'|".*"#Us', '', $prevException->getMessage())) ?>"
+       rel="noreferrer" target="_blank">search &rarr;</a>
+    <?= esc(clean_path($prevException->getFile()) . ':' . $prevException->getLine()) ?>
+    </pre>
+
+        <?php
+        }
+        ?>
+    </div>
+
+    <?php if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) : ?>
+    <div class="container">
 
         <ul class="tabs" id="tabs">
             <li><a href="#backtrace">Backtrace</a></li>
@@ -66,7 +90,7 @@ $errorId = uniqid('error', true);
                     <li>
                         <p>
                             <!-- Trace info -->
-                            <?php if (isset($row['file']) && is_file($row['file'])) :?>
+                            <?php if (isset($row['file']) && is_file($row['file'])) : ?>
                                 <?php
                                 if (isset($row['function']) && in_array($row['function'], ['include', 'include_once', 'require', 'require_once'], true)) {
                                     echo esc($row['function'] . ' ' . clean_path($row['file']));
@@ -375,6 +399,7 @@ $errorId = uniqid('error', true);
         </div>  <!-- /tab-content -->
 
     </div> <!-- /container -->
+    <?php endif; ?>
 
     <div class="footer">
         <div class="container">
@@ -382,7 +407,8 @@ $errorId = uniqid('error', true);
             <p>
                 Displayed at <?= esc(date('H:i:sa')) ?> &mdash;
                 PHP: <?= esc(PHP_VERSION) ?>  &mdash;
-                CodeIgniter: <?= esc(CodeIgniter::CI_VERSION) ?>
+                CodeIgniter: <?= esc(CodeIgniter::CI_VERSION) ?> --
+                Environment: <?= ENVIRONMENT ?>
             </p>
 
         </div>
